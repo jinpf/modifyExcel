@@ -12,7 +12,7 @@ So I write a simple tool to help me get this out.
 
 *pre-view:*
 
-![](https://cloud.githubusercontent.com/assets/5752293/2689269/794ce206-c2f4-11e3-91f5-09217ca1187b.png)
+![](https://cloud.githubusercontent.com/assets/5752293/2689347/19f177c8-c2fd-11e3-8a9a-acf71bfabf5c.png)
 ##Remain to do...
 Because my time is very limited,my supervisor ask my to do a lot of jobs,so maybe I don\`t have time to fix it up.But this may help it working better.
 
