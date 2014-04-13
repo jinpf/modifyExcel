@@ -6,7 +6,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.File;
-import java.util.Random;
+//import java.util.Random;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -32,6 +32,8 @@ public class fmMain {
 	private JLabel jlWord=new JLabel("关键词：");
 	private JLabel jlLevel=new JLabel("自杀程度：");
 	private JLabel jlSign=new JLabel("自杀讯号：");
+	private JLabel jlJump1=new JLabel("第");
+	private JLabel jlJump2=new JLabel("条");
 	
 	private JButton jbNo=new JButton("无");
 	private JButton jbRandom1=new JButton("随机");
@@ -40,11 +42,13 @@ public class fmMain {
 	private JButton jbPrevious=new JButton("上条");
 	private JButton jbNext=new JButton("下条");
 	private JButton jbSaveNext=new JButton("保存并下条");
+	private JButton jbJump=new JButton("跳转");
 	
 	private JTextField jtfTopic=new JTextField();
 	private JTextField jtfWord=new JTextField();
 	private JTextField jtfLevel=new JTextField();
 	private JTextField jtfSign=new JTextField();
+	private JTextField jtfJump=new JTextField();
 	
 	private JTextArea jtaWeibo=new JTextArea();
 	private JTextArea jtaSWeibo=new JTextArea();
@@ -75,7 +79,11 @@ public class fmMain {
 		jtaSWeibo.setLineWrap(true);//设置自动换行
 		jtaSWeibo.setWrapStyleWord(true);
 		
-		jlWeibo.setBounds(20, 15, 60, 20);
+		jlWeibo.setBounds(20, 15, 40, 20);
+		jlJump1.setBounds(120, 15, 20, 20);
+		jtfJump.setBounds(140, 15, 40, 20);
+		jlJump2.setBounds(185, 15, 20, 20);
+		jbJump.setBounds(215, 15, 60, 20);
 		jspWeibo.setBounds(20, 40, 255, 80);
 		jlSWeibo.setBounds(20, 125, 60, 20);
 		jspSWeibo.setBounds(20, 150, 255, 80);
@@ -116,6 +124,10 @@ public class fmMain {
 		jfMain.add(jbPrevious);
 		jfMain.add(jbNext);
 		jfMain.add(jbSaveNext);
+		jfMain.add(jlJump1);
+		jfMain.add(jlJump2);
+		jfMain.add(jtfJump);
+		jfMain.add(jbJump);
 		
 		jfMain.setResizable(false);
 		jfMain.setSize(300, 440);
@@ -265,6 +277,37 @@ public class fmMain {
 					}
 				}
 				);
+		
+		jbJump.addActionListener(
+				new ActionListener(){
+					public void actionPerformed(ActionEvent e) {
+						if(e.getSource()==jbJump){
+							try{
+								int i=Integer.parseInt(jtfJump.getText());
+								if(i>=start && i <=end){
+									cline=i;
+									
+									jtaWeibo.setText(sheet.getCell(3, cline).getContents());
+									jtaSWeibo.setText(sheet.getCell(4, cline).getContents());
+									jtfTopic.setText(sheet.getCell(5, cline).getContents());
+									jtfWord.setText(sheet.getCell(6, cline).getContents());
+									jtfLevel.setText(sheet.getCell(7, cline).getContents());
+									jtfSign.setText(sheet.getCell(8, cline).getContents());
+									
+									jfMain.setTitle("第 "+cline+" 条微博");
+								}else{
+									JOptionPane.showMessageDialog(jfMain.getContentPane(),
+										       "没有这条微博!", "输入超出范围！", JOptionPane.WARNING_MESSAGE);
+								}
+							}catch(Exception e3){
+								JOptionPane.showMessageDialog(jfMain.getContentPane(),
+									       "请输入微博条数!", "输入非整数！", JOptionPane.WARNING_MESSAGE);
+							}
+						}
+					}
+				}
+				);
+		
 		
 		jbNo.addActionListener(
 				new ActionListener(){
